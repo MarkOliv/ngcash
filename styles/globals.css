@@ -24,3 +24,9 @@ a {
     background: black;
   }
 }
+
+/* TAILWIND CSS */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
