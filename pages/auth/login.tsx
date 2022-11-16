@@ -4,7 +4,7 @@ import * as React from "react";
 type Props = {};
 
 import logoNgCash from "../assets/logoNgCash.svg";
-import personIcon from "../assets/userIcon.svg";
+import emailIcon from "../assets/emailIcon.svg";
 import lockIcon from "../assets/lockIcon.svg";
 import openEyeIcon from "../assets/openEyeIcon.svg";
 import closedEyeIcon from "../assets/closedEyeIcon.svg";
@@ -28,7 +28,7 @@ const Login = (props: Props) => {
             >
               <Image
                 className="mr-2"
-                src={personIcon}
+                src={emailIcon}
                 alt=""
                 width={30}
                 height={30}
@@ -37,7 +37,7 @@ const Login = (props: Props) => {
               <input
                 className="bg-transparent focus:outline-none text-xl placeholder:text-[#7D7D7D] placeholder:text-xl"
                 type="text"
-                placeholder="Nome de usuário"
+                placeholder="Seu e-mail"
               />
             </div>
             <div
