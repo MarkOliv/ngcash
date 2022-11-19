@@ -138,6 +138,8 @@ const Home = () => {
           toast.error(
             "Não é possível transferir dinheiro para sua própria conta"
           );
+          setUserName("");
+          setUserCashIn(null);
         }
       } else {
         toast.error("Erro ao realizar a transferencia");
