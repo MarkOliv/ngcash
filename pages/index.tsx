@@ -27,14 +27,15 @@ const Home = () => {
     console.log(User?.user_metadata?.username);
   };
 
-  const getBalance = async (user_id: any) => {
+  const getBalance = async (account_id: any) => {
     let { data: accounts, error } = await supabase
       .from("accounts")
       .select("balance")
 
-      .eq("user_id", user_id);
+      .eq("account_id", account_id);
 
     let a: any = [];
+    console.log(account_id);
 
     if (accounts !== null) {
       a.push(accounts[0]);
@@ -55,7 +56,7 @@ const Home = () => {
         .from("accounts")
         .select("balance")
 
-        .eq("user_id", UserCashIn?.user_id);
+        .eq("account_id", UserCashIn?.account_id);
       let a: any = [];
 
       if (accounts !== null) {
@@ -116,17 +117,17 @@ const Home = () => {
               await supabase
                 .from("accounts")
                 .update({ balance: newBalanceUserCashIn })
-                .eq("user_id", UserCashIn?.user_id);
+                .eq("account_id", UserCashIn?.account_id);
 
             const { data: transMyUser, error: transMyUserError } =
               await supabase
                 .from("accounts")
                 .update({ balance: myNewBalance })
-                .eq("user_id", User?.id);
+                .eq("account_id", User?.user_metadata?.account_id);
 
             if (transMyUserError === null && TransUserCashInError === null) {
               toast.success("transferencia realizada");
-              getBalance(User?.id);
+              getBalance(User?.user_metadata?.account_id);
               setUserCashIn(null);
               setValueToTransfer("");
               setUserName("");
@@ -152,7 +153,7 @@ const Home = () => {
     getuser();
   }, []);
   React.useEffect(() => {
-    getBalance(User?.id);
+    getBalance(User?.user_metadata?.account_id);
   }, [User]);
   React.useEffect(() => {
     getBalanceCashIn();

@@ -52,6 +52,7 @@ const Register = (props: Props) => {
 
   const validateUserName = async (data: any) => {
     const username = data.userName;
+    const account_Id = uuidv4();
     try {
       let { data: users, error } = await supabase
         .from("users")
@@ -67,7 +68,7 @@ const Register = (props: Props) => {
           toast.error("nome de usuário já cadastrado !");
           console.log(users);
         } else {
-          handleRegister(data.email, data.password, username);
+          handleRegister(data.email, data.password, username, account_Id);
         }
       }
     } catch (error) {}
@@ -76,7 +77,8 @@ const Register = (props: Props) => {
   const handleRegister = async (
     email: string,
     password: string,
-    username: string
+    username: string,
+    account_Id: string
   ) => {
     try {
       let { data: user, error } = await supabase.auth.signUp({
@@ -85,6 +87,7 @@ const Register = (props: Props) => {
         options: {
           data: {
             username: username,
+            account_id: account_Id,
           },
         },
       });
@@ -94,7 +97,7 @@ const Register = (props: Props) => {
           toast.error("Email já cadastrado !");
         }
       } else {
-        handleCreateNewUser(user?.user?.id, username);
+        handleCreateNewUser(user?.user?.id, username, account_Id);
       }
     } catch (error) {
       toast.error("Algo deu errado !");
@@ -104,11 +107,10 @@ const Register = (props: Props) => {
 
   const handleCreateNewUser = async (
     user_Id: string | undefined,
-    userName: string
+    userName: string,
+    account_Id: string
   ) => {
     try {
-      const account_Id = uuidv4();
-
       const { data, error } = await supabase
         .from("users")
         .insert([
