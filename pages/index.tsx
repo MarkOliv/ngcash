@@ -131,6 +131,12 @@ const Home = () => {
               setUserCashIn(null);
               setValueToTransfer("");
               setUserName("");
+
+              registerTransaction(
+                UserCashIn?.account_id,
+                User?.user_metadata?.account_id,
+                Number(valueToTransfer)
+              );
             }
           } else {
             toast.error("Saldo insuficiente");
@@ -146,6 +152,22 @@ const Home = () => {
         toast.error("Erro ao realizar a transferencia");
         toast.info("busque pelo nome do usuário antes");
       }
+    } catch (error) {}
+  };
+
+  const registerTransaction = async (
+    cashInAccount_id: string,
+    cashOutAccount_id: string,
+    value: any
+  ) => {
+    try {
+      const { data, error } = await supabase.from("transactions").insert([
+        {
+          debitedAccount: cashOutAccount_id,
+          creditedAccount: cashInAccount_id,
+          value: value,
+        },
+      ]);
     } catch (error) {}
   };
 
