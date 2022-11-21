@@ -30,7 +30,9 @@ export const NavBar = () => {
 
         <div className="flex flex-col items-end justify-end text-lg">
           <h1>{User?.user_metadata?.username}</h1>
-          <h3 onClick={logOut}>Sair</h3>
+          <h3 className="cursor-pointer hover:text-red-500" onClick={logOut}>
+            Sair
+          </h3>
         </div>
       </div>
     </nav>

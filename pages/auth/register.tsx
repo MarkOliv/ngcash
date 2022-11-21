@@ -1,7 +1,6 @@
 // @flow
 import Image from "next/image";
 import * as React from "react";
-type Props = {};
 
 import logoNgCash from "../assets/logoNgCash.svg";
 import personIcon from "../assets/userIcon.svg";
@@ -21,10 +20,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import supabase from "../../utils/supabase";
+import { useRouter } from "next/router";
 
-const Register = (props: Props) => {
+const Register = () => {
   const [showPass1, setshowPass1] = React.useState<boolean>(false);
   const [showPass2, setshowPass2] = React.useState<boolean>(false);
+
+  const router = useRouter();
+
+  const getuser = async () => {
+    const { data, error } = await supabase.auth.getUser();
+
+    if (data?.user !== null) {
+      router.push("/");
+    }
+  };
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -49,6 +59,10 @@ const Register = (props: Props) => {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
+
+  React.useEffect(() => {
+    getuser();
+  }, []);
 
   const validateUserName = async (data: any) => {
     const username = data.userName;

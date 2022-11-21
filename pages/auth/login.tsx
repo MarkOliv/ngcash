@@ -1,7 +1,6 @@
 // @flow
 import Image from "next/image";
 import * as React from "react";
-type Props = {};
 
 import logoNgCash from "../assets/logoNgCash.svg";
 import emailIcon from "../assets/emailIcon.svg";
@@ -18,9 +17,19 @@ import supabase from "../../utils/supabase";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
-const Login = (props: Props) => {
+const Login = () => {
   const [showPass, setshowPass] = React.useState<boolean>(false);
+
+  const router = useRouter();
+  const getuser = async () => {
+    const { data, error } = await supabase.auth.getUser();
+
+    if (data?.user !== null) {
+      router.push("/");
+    }
+  };
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -63,6 +72,10 @@ const Login = (props: Props) => {
       toast.error(`${error}`);
     }
   };
+
+  React.useEffect(() => {
+    getuser();
+  }, []);
 
   return (
     <div className="container mx-auto px-10 text-black">

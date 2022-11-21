@@ -3,6 +3,9 @@ import type { AppProps } from "next/app";
 import supabase from "../utils/supabase";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
+
+import ico from "../public/favicon.ico";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [User, setUser] = React.useState<any>();
@@ -25,6 +28,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <div>
+      <Head>
+        <title>NgCASH</title>
+      </Head>
       <Component {...pageProps} />
     </div>
   );
