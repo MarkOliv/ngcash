@@ -231,7 +231,7 @@ const Register = () => {
                 onClick={() => {
                   setshowPass1(!showPass1);
                 }}
-                className="ml-20 cursor-pointer"
+                className="-ml-14 md:ml-20 cursor-pointer"
                 src={showPass1 ? openEyeIcon : closedEyeIcon}
                 alt=""
                 width={35}
@@ -267,7 +267,7 @@ const Register = () => {
                 onClick={() => {
                   setshowPass2(!showPass2);
                 }}
-                className="ml-20 cursor-pointer"
+                className="-ml-14 md:ml-20 cursor-pointer"
                 src={showPass2 ? openEyeIcon : closedEyeIcon}
                 alt=""
                 width={35}

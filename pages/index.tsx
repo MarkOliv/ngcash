@@ -257,7 +257,7 @@ const Home = () => {
           <div className="md:grid md:grid-cols-3 gap-4 px-10">
             <div
               id="balance"
-              className="grid grid-cols-1 grid-rows-3 bg-white rounded-[40px] text-black p-5"
+              className="grid grid-cols-1 grid-rows-3 bg-white rounded-[40px] text-black p-5 my-5"
             >
               <div>
                 <Image src={walletIcon} alt="" width={75} height={75} />

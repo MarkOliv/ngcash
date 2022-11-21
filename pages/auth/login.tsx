@@ -83,7 +83,7 @@ const Login = () => {
         <div className="w-full flex justify-center mt-10">
           <Image src={logoNgCash} alt="" width={200} height={200} />
         </div>
-        <div className="bg-white w-[550px] my-7 py-5 px-10 rounded-3xl">
+        <div className="bg-white w-96 md:w-[550px] my-7 py-5 px-10 rounded-3xl">
           <h1 className="text-center text-5xl font-bold my-5">LOGIN</h1>
           <form onSubmit={handleSubmit(handleLogin)}>
             <div
@@ -133,7 +133,7 @@ const Login = () => {
                 onClick={() => {
                   setshowPass(!showPass);
                 }}
-                className="ml-20 cursor-pointer"
+                className="-ml-14 md:ml-20 cursor-pointer"
                 src={showPass ? openEyeIcon : closedEyeIcon}
                 alt=""
                 width={35}
