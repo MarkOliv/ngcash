@@ -1,7 +1,6 @@
 // @flow
 import Image from "next/image";
 import * as React from "react";
-type Props = {};
 
 import logoNgCash from "../assets/logoNgCash.svg";
 import emailIcon from "../assets/emailIcon.svg";
@@ -18,9 +17,19 @@ import supabase from "../../utils/supabase";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
-const Login = (props: Props) => {
+const Login = () => {
   const [showPass, setshowPass] = React.useState<boolean>(false);
+
+  const router = useRouter();
+  const getuser = async () => {
+    const { data, error } = await supabase.auth.getUser();
+
+    if (data?.user !== null) {
+      router.push("/");
+    }
+  };
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -64,13 +73,17 @@ const Login = (props: Props) => {
     }
   };
 
+  React.useEffect(() => {
+    getuser();
+  }, []);
+
   return (
     <div className="container mx-auto px-10 text-black">
       <div className="flex flex-wrap justify-center items-center">
         <div className="w-full flex justify-center mt-10">
           <Image src={logoNgCash} alt="" width={200} height={200} />
         </div>
-        <div className="bg-white w-[550px] my-7 py-5 px-10 rounded-3xl">
+        <div className="bg-white w-96 md:w-[550px] my-7 py-5 px-10 rounded-3xl">
           <h1 className="text-center text-5xl font-bold my-5">LOGIN</h1>
           <form onSubmit={handleSubmit(handleLogin)}>
             <div
@@ -120,7 +133,7 @@ const Login = (props: Props) => {
                 onClick={() => {
                   setshowPass(!showPass);
                 }}
-                className="ml-20 cursor-pointer"
+                className="-ml-14 md:ml-20 cursor-pointer"
                 src={showPass ? openEyeIcon : closedEyeIcon}
                 alt=""
                 width={35}

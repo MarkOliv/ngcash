@@ -1,7 +1,6 @@
 // @flow
 import Image from "next/image";
 import * as React from "react";
-type Props = {};
 
 import logoNgCash from "../assets/logoNgCash.svg";
 import personIcon from "../assets/userIcon.svg";
@@ -21,10 +20,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import supabase from "../../utils/supabase";
+import { useRouter } from "next/router";
 
-const Register = (props: Props) => {
+const Register = () => {
   const [showPass1, setshowPass1] = React.useState<boolean>(false);
   const [showPass2, setshowPass2] = React.useState<boolean>(false);
+
+  const router = useRouter();
+
+  const getuser = async () => {
+    const { data, error } = await supabase.auth.getUser();
+
+    if (data?.user !== null) {
+      router.push("/");
+    }
+  };
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -50,8 +60,13 @@ const Register = (props: Props) => {
     resolver: yupResolver(schema),
   });
 
+  React.useEffect(() => {
+    getuser();
+  }, []);
+
   const validateUserName = async (data: any) => {
     const username = data.userName;
+    const account_Id = uuidv4();
     try {
       let { data: users, error } = await supabase
         .from("users")
@@ -67,7 +82,7 @@ const Register = (props: Props) => {
           toast.error("nome de usuário já cadastrado !");
           console.log(users);
         } else {
-          handleRegister(data.email, data.password, username);
+          handleRegister(data.email, data.password, username, account_Id);
         }
       }
     } catch (error) {}
@@ -76,12 +91,19 @@ const Register = (props: Props) => {
   const handleRegister = async (
     email: string,
     password: string,
-    username: string
+    username: string,
+    account_Id: string
   ) => {
     try {
       let { data: user, error } = await supabase.auth.signUp({
         email: email,
         password: password,
+        options: {
+          data: {
+            username: username,
+            account_id: account_Id,
+          },
+        },
       });
 
       if (error) {
@@ -89,7 +111,7 @@ const Register = (props: Props) => {
           toast.error("Email já cadastrado !");
         }
       } else {
-        handleCreateNewUser(user?.user?.id, username);
+        handleCreateNewUser(user?.user?.id, username, account_Id);
       }
     } catch (error) {
       toast.error("Algo deu errado !");
@@ -99,11 +121,10 @@ const Register = (props: Props) => {
 
   const handleCreateNewUser = async (
     user_Id: string | undefined,
-    userName: string
+    userName: string,
+    account_Id: string
   ) => {
     try {
-      const account_Id = uuidv4();
-
       const { data, error } = await supabase
         .from("users")
         .insert([
@@ -210,7 +231,7 @@ const Register = (props: Props) => {
                 onClick={() => {
                   setshowPass1(!showPass1);
                 }}
-                className="ml-20 cursor-pointer"
+                className="-ml-14 md:ml-20 cursor-pointer"
                 src={showPass1 ? openEyeIcon : closedEyeIcon}
                 alt=""
                 width={35}
@@ -246,7 +267,7 @@ const Register = (props: Props) => {
                 onClick={() => {
                   setshowPass2(!showPass2);
                 }}
-                className="ml-20 cursor-pointer"
+                className="-ml-14 md:ml-20 cursor-pointer"
                 src={showPass2 ? openEyeIcon : closedEyeIcon}
                 alt=""
                 width={35}
