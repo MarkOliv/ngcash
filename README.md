@@ -1,34 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Orientações para rodar o projeto
 
-First, run the development server:
+O projeto funciona com banco de dados em nuvem, então basta executar um yarn add ou npm install para instalar as dependencias e rodar com yarn dev. Após isso acesse o projeto atráves da porta 3000 no navegador (localhost:3000)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## stack 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+foi utilizado as seguintes tecnologias;
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- React + NextJs
+- TypeScript
+- Supabase
+- Figma.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# Considerações
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Primeiro gostaria de agradecer a oportunidade de participar do processo seletivo da NgCash. Não tenho muito conhecimento backend então acabei optando por utilizar uma ferramenta que me ajudou no desenvolvimento deste projeto. Utilizei o supabase para fazer a parte de autenticação e banco de dados, o supabase utiliza um banco de dados postgreSQL, a modelagem das tabelas foram feitas a mao no site, apenas uma trigger foi criada via query.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Acredito que poderia melhorar bastante coisa no código porém quis respeitar o prazo de 7 dias e espero que gostem do resultado !
